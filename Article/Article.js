@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Courtney\'s Lambda Adventure',
+    date: 'Jul 8th, 2019',
+    firstParagraph: `I started Lambda School on July 8th. I was frightened and excited and expecting only the best from myself. I really struggled getting CSS together but I kept going`,
+
+    secondParagraph: `Zim in the best! My websites look like my kids made them. `,
+
+    thirdParagraph: `I am some sort of perpetually exhausted pigeon.`
   }
 ];
 
@@ -112,3 +121,54 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const articles = document.querySelector('.articles');
+
+function createArticle (articleInfo){
+  //create article elements
+  const artCard = document.createElement('div');
+  const artTitle = document.createElement('h2');
+  const artDate = document.createElement('p');
+  const artP1 = document.createElement('p');
+  const artP2 = document.createElement('p');
+  const artP3 = document.createElement('p');
+  const artBtn = document.createElement('span');
+
+  //set content structure
+  artCard.appendChild(artTitle);
+  artCard.appendChild(artDate);
+  artCard.appendChild(artP1);
+  artCard.appendChild(artP2);
+  artCard.appendChild(artP3);
+  artCard.appendChild(artBtn);
+
+  //set content classes
+  artCard.classList.add('article');
+  artDate.classList.add('date');
+  artBtn.classList.add('expandButton');
+
+  //set text content
+  artTitle.textContent= articleInfo.title;
+  artDate.textContent= articleInfo.date;
+  artP1.textContent= articleInfo.firstParagraph;
+  artP2.textContent= articleInfo.secondParagraph;
+  artP3.textContent= articleInfo.thirdParagraph;
+  artBtn.textContent = "Read More";
+  
+  //add btn event
+  artBtn.addEventListener('click', () =>{
+     artCard.classList.toggle('article-open');
+  })
+
+  //return entire content 
+  return artCard;
+};
+
+let newArticleParts = data.map((arrayItem)=>{
+  let newArticle = createArticle(arrayItem);
+  return newArticle;
+});
+
+newArticleParts.forEach(component =>{
+  articles.appendChild(component);
+});
